@@ -1,0 +1,51 @@
+ <h3>スケジュール新規作成</h3>
+
+  <% if @plan.errors.any? %>
+     <div id="error_explanation">
+       <h2><%= pluralize(@plan.errors.count, "error") %> データの保存に失敗しました。</h2>
+
+       <ul>
+        <% @plan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+       </ul>
+     </div>
+  <% end %>
+
+ 
+    <%= form_with model: @plan do |f| %>
+      <table>
+        <tr>
+          <th><%= f.label :title ,"タイトル" %></th>
+          <td><%= f.text_field :title %></td>
+        </tr>
+ 
+        <tr>
+          <th><%= f.label :starting_date ,"開始日" %></th>
+          <td><%= f.date_field :starting_date %></td>
+        </tr>
+ 
+        <tr>
+          <th><%= f.label :ending_date ,"終了日" %></th>
+          <td><%= f.date_field :ending_date %></td>
+        </tr>
+ 
+        <tr>
+          <th><%= f.label :checkbox ,"終日" %></th>
+          <td><%= f.check_box :checkbox %>
+          <br>終日の場合はチェック</td>
+        </tr>
+
+        <tr>
+          <th><%= f.label :introduction ,"スケジュールメモ" %></th>
+          <td><%= f.text_field :introduction %>
+        </tr>
+      </table>
+ 
+      <div>
+        <ul>
+          <li><%= f.submit "登録完了する"%></li>
+          <li><%= link_to "スケジュール一覧に戻る", :plans %></li>
+        </ul>
+      </div>
+    <% end %>

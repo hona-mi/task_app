@@ -1,0 +1,44 @@
+ <h3>スケジュール一覧</h3>
+     <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+     <% end %>
+ 
+    <table>
+      <thead>
+        <tr>
+          <th> id</th>
+          <th>タイトル</th>
+          <th>開始日</th>
+          <th>終了日</th>
+          <th>終日</th>
+          <th>スケジュール更新日時</th>
+          <th>参照</th>
+          <th>編集</th>
+          <th>削除</th>
+        </tr>
+
+        <% if Plan.count == 0 %>
+        <th colspan = "9"><%= @message %></th>
+        <% end %>
+
+        
+      </thead>
+ 
+      <tbody>
+        <% @plans.each do |plan| %>
+          <tr>
+            <td><%= plan.id %></td>
+            <td><%= plan.title %></td>
+            <td><%= plan.starting_date %></td>
+            <td><%= plan.ending_date %></td>
+            <td><%= plan.checkbox ? "◯" : "ー" %></td>
+            <td><%= plan.updated_at.to_s(:datetime_jp) %></td>
+            <td><%= link_to "参照", plan %></td>
+            <td><%= link_to "編集", [:edit, plan] %></td>
+            <td><%= button_to "削除", plan, method: :delete, data: { confirm: "本当に削除しますか？" } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+ </table>
+ 
+    <p><%= link_to "スケジュール新規登録", :new_plan %></p>
